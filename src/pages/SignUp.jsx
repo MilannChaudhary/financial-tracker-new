@@ -1,12 +1,22 @@
 import { useState } from "react";
+import axios from "axios";
 
 function SignUp() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log({ name, email, password });
+    try {
+      const response = await axios.post("http://localhost:8000/api/v1/auth/signup", {
+        name,
+        email,
+        password,
+      });
+      console.log(response.data);
+    } catch (error) {
+      console.log(error.response.data);
+    }
   };
 
   return (
@@ -42,11 +52,9 @@ function SignUp() {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <div className="text-center">
-              <button type="submit" className="btn btn-primary">
-                Sign Up
-              </button>
-            </div>
+            <button type="submit" className="btn btn-primary">
+              Sign Up
+            </button>
           </form>
         </div>
       </div>
