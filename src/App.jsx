@@ -27,7 +27,7 @@ function App() {
           />
 
           <Route
-            path="/transction"
+            path="/transaction"
             element={
               <ProtectedRoute>
                 <Transaction />
