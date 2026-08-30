@@ -1,9 +1,14 @@
 import React, { useState } from "react";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import UserContext from "../context/UserContext";
 import axios from "axios";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { setUser } = useContext(UserContext);
+  const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -11,7 +16,9 @@ function Login() {
         email,
         password,
       });
-      console.log(response.data);
+      setUser(response.data.user);
+      navigate("/dashboard");
+      //   console.log("Logged in:", response.data.user);
     } catch (error) {
       console.log(error.response.data);
     }
