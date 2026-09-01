@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import UserContext from "../context/UserContext";
+import { UserContext } from "../context/UserContext";
 import axios from "axios";
 
 function Login() {
@@ -12,7 +12,7 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:8000/api/v1/auth/login", {
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/auth/login`, {
         email,
         password,
       });

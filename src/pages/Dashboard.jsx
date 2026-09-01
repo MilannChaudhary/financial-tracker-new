@@ -12,7 +12,7 @@ function Dashboard() {
 
   const fetchTransactions = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/api/v1/transactions");
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/transactions`);
       setTransactions(response.data.transaction);
     } catch (error) {
       console.log(error);

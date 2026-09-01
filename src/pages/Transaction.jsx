@@ -10,7 +10,7 @@ function Transaction() {
 
   const fetchTransactions = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/api/v1/transactions");
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/transactions`);
       setTransactions(response.data.transaction);
     } catch (error) {
       console.log(error);
@@ -23,7 +23,7 @@ function Transaction() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:8000/api/v1/transactions", {
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/transactions`, {
         description,
         amount: Number(amount),
         type,
@@ -37,7 +37,7 @@ function Transaction() {
   };
   const handleDelete = async (_id) => {
     try {
-      await axios.delete(`http://localhost:8000/api/v1/transactions/${_id}`);
+      await axios.delete(`${import.meta.env.VITE_API_URL}/api/v1/transactions/${_id}`);
       fetchTransactions();
     } catch (error) {
       console.log(error);
