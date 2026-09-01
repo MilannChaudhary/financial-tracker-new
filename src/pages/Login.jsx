@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -52,6 +53,9 @@ function Login() {
               Log In
             </button>
           </form>
+          <p className="text-center mt-3">
+            Don't have an account? <Link to="/signup">Sign Up</Link>
+          </p>
         </div>
       </div>
     </div>

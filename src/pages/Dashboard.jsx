@@ -7,7 +7,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import axios from "axios";
 
 function Dashboard() {
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const [transactions, setTransactions] = useState([]);
 
   const fetchTransactions = async () => {
@@ -21,6 +21,11 @@ function Dashboard() {
   useEffect(() => {
     fetchTransactions();
   }, []);
+
+  const handleLogout = () => {
+    setUser(null);
+    navigate("/");
+  };
 
   const totalIncome = transactions.filter((t) => t.type === "income").reduce((acc, t) => acc + t.amount, 0);
 
@@ -70,6 +75,9 @@ function Dashboard() {
       </div>
 
       <Link to="/transaction">Go to Transactions</Link>
+      <button className="btn btn-outline-danger" onClick={handleLogout}>
+        Logout
+      </button>
     </div>
   );
 }

@@ -1,12 +1,17 @@
-import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
 
 function Transaction() {
   const [transaction, setTransactions] = useState([]);
   const [description, setDescription] = useState("");
   const [amount, setAmount] = useState("");
   const [type, setType] = useState("expense");
+  const { setUser } = useContext(UserContext);
+  const navigate = useNavigate();
 
   const fetchTransactions = async () => {
     try {
@@ -19,6 +24,11 @@ function Transaction() {
   useEffect(() => {
     fetchTransactions();
   }, []);
+
+  const handleLogout = () => {
+    setUser(null);
+    navigate("/");
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -46,6 +56,9 @@ function Transaction() {
   return (
     <div className="container mt-5">
       <h1 className="mb-4">Transactions</h1>
+      <Link to="/dashboard" className="btn btn-outline-secondary mb-3">
+        ← Back to Dashboard
+      </Link>
 
       <form onSubmit={handleSubmit} className="mb-4">
         <div className="mb-3">
@@ -100,6 +113,9 @@ function Transaction() {
           ))}
         </tbody>
       </table>
+      <button className="btn btn-outline-danger" onClick={handleLogout}>
+        Logout
+      </button>
     </div>
   );
 }

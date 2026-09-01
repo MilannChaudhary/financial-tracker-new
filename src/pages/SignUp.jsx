@@ -1,10 +1,14 @@
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function SignUp() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -14,6 +18,7 @@ function SignUp() {
         password,
       });
       console.log(response.data);
+      navigate("/");
     } catch (error) {
       console.log(error.response.data);
     }
@@ -56,6 +61,9 @@ function SignUp() {
               Sign Up
             </button>
           </form>
+          <p className="text-center mt-3">
+            Already have an account? <Link to="/">Log In</Link>
+          </p>
         </div>
       </div>
     </div>
